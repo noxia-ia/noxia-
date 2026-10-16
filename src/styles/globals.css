@@ -1,0 +1,493 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html{scroll-behavior:smooth}
+body{background:#050812;color:#eef2f8}
+:focus-visible{outline:2px solid #9B4DFF;outline-offset:2px}
+::selection{background:rgba(155,77,255,.35);color:#fff}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+.noxia-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #02040a;
+  animation: noxiaIntroOut .8s 3.7s ease forwards;
+}
+.noxia-intro__backdrop { position:absolute; inset:0; background: radial-gradient(circle at 50% 45%, rgba(25,191,255,.12), transparent 34%), radial-gradient(circle at 50% 55%, rgba(155,77,255,.16), transparent 52%); }
+.noxia-intro__core { position:absolute; width:min(42vw,420px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.9) 0 1%,rgba(25,191,255,.35) 4%,rgba(155,77,255,.16) 24%,transparent 66%); filter:blur(1px); animation:noxiaCorePulse 2.8s ease-in-out infinite; }
+.noxia-intro__orbit { position:absolute; width:min(78vw,900px); aspect-ratio:1; border:1px solid rgba(155,77,255,.24); border-radius:50%; transform:rotate(-18deg); animation:noxiaOrbit 7s linear infinite; }
+.noxia-intro__orbit--two { width:min(56vw,680px); border-color:rgba(25,191,255,.22); transform:rotate(22deg); animation-duration:5s; animation-direction:reverse; }
+.noxia-intro__content { position:relative; z-index:2; display:flex; width:min(92vw,860px); flex-direction:column; align-items:center; text-align:center; }
+.noxia-intro__logo-wrap { width:min(82vw,760px); animation:noxiaLogoIn 1.25s cubic-bezier(.16,1,.3,1) both; }
+.noxia-intro__logo { display:block; width:100%; height:auto; object-fit:contain; mix-blend-mode:screen; }
+.noxia-intro__copy { min-height:90px; margin-top:-22px; }
+.noxia-intro__line { margin:8px 0 0; color:#DDE5F2; font-size:clamp(1rem,2vw,1.35rem); opacity:0; transform:translateY(12px); transition:opacity .65s ease, transform .65s ease; }
+.noxia-intro__line.is-visible { opacity:1; transform:translateY(0); }
+.noxia-intro__line--accent { color:#B98BFF; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+.noxia-intro__skip { margin-top:24px; min-height:44px; padding:0 18px; border:1px solid rgba(221,229,242,.18); border-radius:999px; background:rgba(5,8,18,.55); color:#8D96A8; font-size:.8rem; backdrop-filter:blur(10px); transition:color .2s ease,border-color .2s ease; }
+.noxia-intro__skip:hover { color:#fff; border-color:rgba(155,77,255,.55); }
+@keyframes noxiaLogoIn { from { opacity:0; transform:scale(.92) translateY(18px); filter:blur(10px); } to { opacity:1; transform:scale(1) translateY(0); filter:blur(0); } }
+@keyframes noxiaCorePulse { 0%,100% { transform:scale(.9); opacity:.45; } 50% { transform:scale(1.12); opacity:.8; } }
+@keyframes noxiaOrbit { from { transform:rotate(-18deg) scale(.98); } to { transform:rotate(342deg) scale(.98); } }
+@keyframes noxiaIntroOut { to { opacity:0; visibility:hidden; pointer-events:none; } }
+@media (max-width:767px) { .noxia-intro__copy { min-height:120px; } .noxia-intro__logo-wrap { width:100vw; max-width:680px; } .noxia-intro__orbit { width:120vw; } .noxia-intro__orbit--two { width:90vw; } }
+
+/* NOXIA dashboard visual system — aligné sur la maquette validée */
+.noxia-app-shell{min-height:100vh;background:#030712;color:#eef2f8;overflow-x:hidden}
+.noxia-app-shell a{text-decoration:none}
+
+/* Barre du haut */
+.noxia-topbar{height:84px;display:flex;align-items:center;gap:28px;padding:0 24px;border-bottom:1px solid rgba(132,150,190,.16);background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);backdrop-filter:blur(18px);position:sticky;top:0;z-index:40;transition:border-color .2s,box-shadow .2s,transform .2s}
+.noxia-topbar-logo{width:250px;flex:none}
+.noxia-logo{display:flex;align-items:center;width:max-content}
+.noxia-logo-image{height:74px;width:auto;object-fit:contain}
+.noxia-search{height:48px;max-width:700px;flex:1;display:flex;align-items:center;gap:12px;padding:0 18px;border:1px solid rgba(104,139,211,.45);border-radius:999px;background:rgba(11,20,43,.78);color:#9ba7c2;box-shadow:inset 0 1px rgba(255,255,255,.03),0 0 18px rgba(63,90,255,.12)}
+.noxia-search input{width:100%;border:0;outline:0;background:transparent;color:#e8ecf5;font-size:14px}
+.noxia-search input::placeholder{color:#8a95ad}
+.noxia-topbar-actions{display:flex;align-items:center;gap:18px;margin-left:auto}
+.noxia-icon-btn{position:relative;display:grid;place-items:center;width:44px;height:44px;color:#dbe4f4}
+.noxia-profile-menu{position:relative}
+.noxia-profile{display:flex;align-items:center;gap:10px;padding-left:18px;border-left:1px solid rgba(132,150,190,.18);cursor:pointer;list-style:none;color:#9ba7c2}
+.noxia-profile::-webkit-details-marker{display:none}
+.noxia-avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#8b5cf6,#172c6b 70%);border:1px solid rgba(161,108,255,.55);box-shadow:0 0 20px rgba(103,63,255,.28);font-weight:700;color:#fff}
+.noxia-profile-text{min-width:80px;max-width:160px}
+.noxia-profile-text strong{font-size:14px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.noxia-profile-text small{color:#9ba7c2;margin-top:2px}
+.noxia-profile-pop{position:absolute;right:0;top:calc(100% + 8px);min-width:200px;padding:6px;border:1px solid rgba(104,139,211,.3);border-radius:10px;background:#071126;box-shadow:0 18px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;z-index:50}
+.noxia-profile-pop a,.noxia-signout{display:flex;align-items:center;min-height:44px;padding:0 12px;border:0;border-radius:7px;background:none;color:#c9d2e4;font-size:13px;text-align:left;cursor:pointer}
+.noxia-profile-pop a:hover,.noxia-signout:hover{background:rgba(139,92,246,.14);color:#fff}
+
+/* Colonne de gauche */
+.noxia-body{display:flex;min-height:calc(100vh - 84px)}
+.noxia-sidebar{width:238px;flex:none;position:sticky;top:84px;height:calc(100vh - 84px);overflow-y:auto;border-right:1px solid rgba(132,150,190,.15);background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);padding:28px 18px 18px;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s,transform .2s}
+.noxia-sidebar-nav{display:flex;flex-direction:column;gap:6px}
+.noxia-side-link{display:flex;align-items:center;gap:14px;min-height:44px;padding:0 14px;border:1px solid transparent;border-radius:8px;color:#c4cee3;font-size:14px;transition:background .2s,color .2s}
+.noxia-side-link:hover{background:rgba(139,92,246,.1);color:#fff}
+.noxia-side-link.is-active{color:#fff;background:linear-gradient(90deg,#2e3fe0,#5a30e6);border-color:rgba(130,160,255,.55);box-shadow:0 0 24px rgba(80,70,255,.35)}
+.noxia-premium-mini{margin-top:auto;padding:17px 15px;border:1px solid rgba(255,255,255,.1);border-radius:1rem;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 0 35px rgba(93,47,255,.15);transition:border-color .2s,box-shadow .2s,transform .2s}
+.noxia-premium-star{color:#bd7cff;filter:drop-shadow(0 0 8px #8f42ff)}
+.noxia-premium-mini strong{display:block;margin-top:6px;font-size:16px}
+.noxia-premium-mini p{font-size:12px;line-height:1.5;color:#b3bdd2;margin:7px 0 13px}
+.noxia-premium-mini a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;color:#fff;background:linear-gradient(90deg,#6d31ff,#3f9cff);border-radius:7px;font-size:12px;font-weight:700}
+.noxia-sidebar-footer{padding:26px 0 0}
+.noxia-sidebar-footer .noxia-logo-image{height:58px}
+
+/* Contenu */
+.noxia-main{min-width:0;flex:1}
+.noxia-dashboard{max-width:1440px;margin:0 auto;padding:22px 24px 30px}
+.noxia-welcome-grid,.noxia-content-grid{display:grid;grid-template-columns:minmax(0,1fr) 394px;gap:24px}
+.noxia-content-grid{margin-top:20px}
+.noxia-top-right{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}
+
+/* Hero */
+.noxia-hero-card{min-height:250px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:1rem;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 0 30px rgba(60,90,255,.12);transition:border-color .2s,box-shadow .2s,transform .2s}
+.noxia-hero-art{position:absolute;inset:0 0 0 38%;background:url('/brand/hero-face.jpg') right center/auto 118% no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.noxia-hero-copy{position:relative;z-index:2;padding:30px 28px;max-width:62%}
+.noxia-hero-copy p{font-size:18px;color:#e3e9f6;margin:0 0 8px}
+.noxia-hero-copy h1{font-size:30px;line-height:1.14;margin:0 0 14px;font-weight:800;letter-spacing:-.02em}
+.noxia-hero-copy h1 b{background:linear-gradient(90deg,#a85cff,#3fb5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.noxia-hero-copy>span{display:block;color:#b9c3d8;font-size:13px;line-height:1.6;max-width:430px}
+.noxia-hero-copy .noxia-gradient-btn{margin-top:20px}
+.noxia-hero-quote{position:absolute;z-index:2;right:22px;bottom:22px;margin:0;font-size:12px;font-style:italic;line-height:1.35;color:#e6ecf8;text-align:left;text-shadow:0 2px 10px #000}
+.noxia-gradient-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:40px;color:#fff!important;background:linear-gradient(90deg,#6b27ff,#397fff);border-radius:8px;padding:0 18px;font-size:12px;font-weight:700;box-shadow:0 8px 25px rgba(83,47,255,.28);border:0;cursor:pointer}
+.noxia-gradient-btn:disabled{opacity:.55;cursor:not-allowed}
+
+/* Crédits + bonus */
+.noxia-credit-card,.noxia-bonus-card{min-height:250px;min-width:0;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);border-radius:1rem;padding:16px;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:border-color .2s,box-shadow .2s,transform .2s}
+.noxia-credit-top{display:flex;align-items:center;gap:10px}
+.noxia-credit-top strong{font-size:16px}
+.noxia-round-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:rgba(65,91,255,.3);color:#d8e2ff;flex:none}
+.noxia-credit-number{display:flex;align-items:center;gap:10px;font-size:52px;font-weight:800;line-height:1;margin:22px 0 6px}
+.noxia-credit-plus{font-size:15px;line-height:1;padding:5px 9px;border-radius:999px;background:rgba(71,229,207,.14);color:#47e5cf;font-weight:800}
+.noxia-credit-card small{display:block;color:#a9b4c9;font-size:13px;margin-bottom:auto}
+.noxia-credit-card .noxia-gradient-btn,.noxia-bonus-card .noxia-gradient-btn{width:100%;margin-top:16px;font-size:12px;padding:0 8px}
+.noxia-bonus-card{border-color:rgba(255,166,57,.55);background:linear-gradient(160deg,rgba(60,32,12,.9),#071329 55%);box-shadow:0 0 28px rgba(255,150,40,.12)}
+.noxia-bonus-head{display:flex;align-items:center;gap:8px;color:#ffb347}
+.noxia-bonus-head strong{font-size:14px;color:#fff;white-space:nowrap}
+.noxia-bonus-day{margin-top:18px;color:#e3e9f6;font-size:17px;text-align:center}
+.noxia-bonus-card>b{display:block;color:#39e3d2;font-size:20px;margin-top:6px;text-align:center}
+.noxia-dots{display:flex;justify-content:center;gap:9px;margin:16px 0 auto}
+.noxia-dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid #6b7a9c}
+.noxia-dots i.on{background:#47bfff;border-color:#47bfff;box-shadow:0 0 8px #47bfff}
+.noxia-dots i.now{border-color:#fff}
+.noxia-bonus-msg{margin:8px 0 0;font-size:11px;color:#c9d2e4;text-align:center}
+.noxia-alert{margin-top:14px;border:1px solid rgba(255,99,115,.35);background:rgba(255,60,80,.06);padding:12px;border-radius:8px;color:#f5cbd0;font-size:13px}
+.noxia-alert a{color:#b88bff;text-decoration:underline}
+
+/* Modules */
+.noxia-section-heading h1,.noxia-section-heading h2{font-size:22px;margin:4px 0 14px;font-weight:700}
+.noxia-module-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.noxia-module-card{min-width:0;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1);border-radius:1rem;overflow:hidden;color:#fff;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .2s,border-color .2s,box-shadow .2s}
+.noxia-module-card:hover{transform:translateY(-2px);border-color:rgba(135,93,255,.8);box-shadow:0 14px 35px rgba(47,33,115,.3)}
+.noxia-module-visual{height:142px;background:#0b1530 center/cover no-repeat}
+.noxia-module-card.image .noxia-module-visual{background-image:url('/brand/mod-image.jpg')}
+.noxia-module-card.video .noxia-module-visual{background-image:url('/brand/mod-video.jpg')}
+.noxia-module-card.voice .noxia-module-visual{background-image:url('/brand/mod-voice.jpg')}
+.noxia-module-card.tools .noxia-module-visual{background-image:url('/brand/mod-tools.jpg')}
+.noxia-tool-icon{display:grid;place-items:center;height:110px;color:#9d7bff;background:radial-gradient(circle,rgba(102,53,255,.35),transparent 60%),#0b1530}
+.noxia-module-icon{color:#8e67ff;margin:12px 14px 0}
+.noxia-module-card h3{font-size:16px;margin:6px 14px 0}
+.noxia-module-card p{font-size:12px;line-height:1.5;color:#a3afc6;min-height:36px;margin:7px 14px 12px}
+.noxia-module-card .noxia-gradient-btn{margin:auto 14px 14px;font-size:12px}
+
+/* Offre spéciale */
+.noxia-special-card{margin-top:18px;min-height:171px;border:1px solid rgba(255,255,255,.1);border-radius:1rem;position:relative;overflow:hidden;padding:22px 24px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) 160px;gap:16px;align-items:center;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:border-color .2s,box-shadow .2s,transform .2s}
+.noxia-special-copy small{display:flex;align-items:center;gap:8px;color:#ffc15e;font-size:14px;font-weight:700}
+.noxia-special-copy h2{font-size:21px;margin:8px 0 6px}
+.noxia-special-copy p{font-size:12px;line-height:1.5;color:#b3bed2;margin:0 0 14px}
+.noxia-special-card ul{list-style:none;padding:0;margin:0;color:#d3dae8;font-size:13px;line-height:2.1}
+.noxia-special-card li{display:flex;align-items:center;gap:10px}
+.noxia-special-card li span{width:20px;height:20px;display:grid;place-items:center;border:1px solid #6d5cff;border-radius:50%;color:#a98bff;flex:none}
+.noxia-gift{align-self:stretch;margin:-22px -24px -22px 0;background:url('/brand/gift.jpg') center/cover no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%);mask-image:linear-gradient(90deg,transparent,#000 40%)}
+
+/* Colonne de droite */
+.noxia-right-column{min-width:0;display:flex;flex-direction:column;gap:16px}
+.noxia-streak-card,.noxia-creations-card{border:1px solid rgba(255,255,255,.1);border-radius:1rem;padding:16px;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:border-color .2s,box-shadow .2s,transform .2s}
+.noxia-streak-head{display:flex;align-items:center;gap:12px}
+.noxia-flame{color:#ff9a2e;filter:drop-shadow(0 0 8px rgba(255,140,30,.6));flex:none}
+.noxia-streak-head h2{font-size:19px;margin:0}
+.noxia-streak-head p{font-size:13px;line-height:1.4;color:#b3bed2;margin:4px 0 0}
+.noxia-streak-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;list-style:none;margin:14px 0 0;padding:0}
+.noxia-streak-day{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border:1px solid rgba(120,143,184,.2);border-radius:8px;font-size:10px;color:#c4cee3;background:rgba(7,17,38,.7)}
+.noxia-streak-day b{font-size:12px;color:#fff}
+.noxia-streak-check{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;border:1.5px solid #4a5a80;color:transparent}
+.noxia-streak-day.done .noxia-streak-check{background:#10b89a;border-color:#10b89a;color:#fff}
+.noxia-streak-day.now{border-color:#3f8cff;background:rgba(63,140,255,.16);box-shadow:0 0 14px rgba(63,140,255,.35)}
+.noxia-streak-day.now .noxia-streak-check{background:#3f8cff;border-color:#3f8cff;color:#fff}
+.noxia-side-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.noxia-side-heading h3{font-size:16px;margin:0}
+.noxia-side-heading a{display:flex;align-items:center;gap:4px;font-size:12px;color:#88a9ff}
+.noxia-empty{font-size:13px;color:#a3afc6;margin:10px 0 4px}
+.noxia-empty a{color:#a98bff;text-decoration:underline}
+.noxia-creation-row{display:grid;grid-template-columns:62px minmax(0,1fr) 20px;gap:12px;align-items:center;padding:9px 0;border-top:1px solid rgba(120,143,184,.12);color:#e8edf6}
+.noxia-thumb{height:46px;border-radius:6px;overflow:hidden;display:grid;place-items:center;color:#cfd9f5;background:linear-gradient(135deg,#22366c,#1e0d4e);border:1px solid rgba(104,133,221,.25)}
+.noxia-thumb img{width:100%;height:100%;object-fit:cover}
+.noxia-thumb.t1{background:linear-gradient(135deg,#3b214f,#143f64)}.noxia-thumb.t2{background:linear-gradient(135deg,#3c295f,#133552)}.noxia-thumb.t3{background:linear-gradient(135deg,#173f61,#45206b)}
+.noxia-creation-row>div:nth-child(2){display:flex;flex-direction:column;min-width:0}
+.noxia-creation-row strong{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.noxia-creation-row small{font-size:11px;color:#8b98b2;margin-top:3px}
+.noxia-creation-row>svg{color:#9fb0d6}
+
+/* Bande de valeurs */
+.noxia-value-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px;padding:16px 4px 0;border-top:1px solid rgba(120,143,184,.14)}
+.noxia-value-strip>div{display:grid;grid-template-columns:48px 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center}
+.noxia-value-icon{grid-row:1/3;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(120,100,255,.5);background:rgba(80,60,200,.18);color:#a98bff}
+.noxia-value-strip b{color:#eef2fa;font-size:14px;align-self:end}
+.noxia-value-strip small{grid-column:2;color:#8b98b2;font-size:12px}
+
+/* Tablette large : une seule colonne principale */
+@media(max-width:1180px){
+  .noxia-sidebar{width:215px}.noxia-topbar-logo{width:210px}.noxia-side-link{gap:10px;padding:0 10px}
+  .noxia-welcome-grid,.noxia-content-grid{grid-template-columns:1fr}
+  .noxia-top-right{grid-template-columns:1fr 1fr}
+  .noxia-right-column{display:grid;grid-template-columns:1fr 1fr;align-items:start}
+  .noxia-module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .noxia-special-card{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.noxia-gift{display:none}
+}
+/* Mobile : points de rupture alignés sur md: de Tailwind (768px) */
+@media(max-width:767px){
+  .noxia-topbar{height:auto;min-height:72px;flex-wrap:wrap;padding:10px 14px;gap:10px}
+  .noxia-topbar-logo{width:auto;flex:1}.noxia-logo-image{height:52px}
+  .noxia-search{order:3;flex-basis:100%;max-width:none;height:44px}
+  .noxia-topbar-actions{gap:6px}.noxia-profile{padding-left:8px;border-left:0}
+  .noxia-body{display:block}
+  .noxia-sidebar{position:relative;top:auto;width:100%;height:auto;border-right:0;border-bottom:1px solid rgba(132,150,190,.15);padding:8px 12px;overflow:visible}
+  .noxia-sidebar-nav{flex-direction:row;gap:6px;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .noxia-side-link{flex:none;white-space:nowrap;padding:0 12px;gap:8px;font-size:13px}
+  .noxia-premium-mini,.noxia-sidebar-footer{display:none}
+  .noxia-dashboard{padding:16px 14px 24px}
+  .noxia-right-column{display:flex;align-items:stretch}
+  .noxia-hero-copy{max-width:none;padding:24px 20px}.noxia-hero-copy h1{font-size:25px}
+  .noxia-hero-art{inset:0;background-position:80% center;opacity:.5;-webkit-mask-image:none;mask-image:none}
+  .noxia-hero-quote{display:none}
+  .noxia-value-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .noxia-top-right{grid-template-columns:1fr}
+  .noxia-credit-card,.noxia-bonus-card{min-height:0}
+  .noxia-special-card{grid-template-columns:1fr;padding:18px}
+  .noxia-streak-day span:not(.noxia-streak-check){font-size:9px}
+  .noxia-value-strip{grid-template-columns:1fr}
+}
+@media(max-width:380px){
+  .noxia-module-grid{grid-template-columns:1fr}
+  .noxia-hero-copy h1{font-size:22px}.noxia-hero-copy>span{font-size:12px}
+  .noxia-credit-number{font-size:42px}
+  .noxia-streak-day{padding:6px 0}
+}
+
+
+/* NOXIA preferences: light theme. Dark remains the default visual identity. */
+.noxia-theme-light{background:#eef3fb!important;color:#172033!important}
+.noxia-theme-light .noxia-topbar{background:rgba(245,248,255,.96);border-color:rgba(52,76,120,.16)}
+.noxia-theme-light .noxia-search{background:#fff;color:#53627b;border-color:rgba(72,102,160,.28)}
+.noxia-theme-light .noxia-search input{color:#172033}
+.noxia-theme-light .noxia-search input::placeholder{color:#68758b}
+.noxia-theme-light .noxia-sidebar{background:linear-gradient(180deg,#f7f9ff,#e9eef8);border-color:rgba(52,76,120,.14)}
+.noxia-theme-light .noxia-side-link{color:#34425b}
+.noxia-theme-light .noxia-side-link:hover{background:rgba(112,72,230,.09);color:#182238}
+.noxia-theme-light .noxia-main{background:#eef3fb}
+.noxia-theme-light .noxia-profile-text strong{color:#172033}
+.noxia-theme-light .noxia-profile-text small,.noxia-theme-light .noxia-profile{color:#58667d}
+.noxia-theme-light .noxia-profile-pop{background:#fff;border-color:rgba(52,76,120,.18);box-shadow:0 18px 40px rgba(32,52,88,.18)}
+.noxia-theme-light .noxia-profile-pop a,.noxia-theme-light .noxia-signout{color:#34425b}
+.noxia-theme-light .noxia-premium-mini{background:linear-gradient(135deg,#f3edff,#e8f1ff)}
+.noxia-theme-light .noxia-dashboard .noxia-credit-card,
+.noxia-theme-light .noxia-dashboard .noxia-bonus-card{background:linear-gradient(160deg,#fff,#eef4ff)}
+.noxia-theme-light .noxia-app-shell .noxia-silver{color:#172033}
+.noxia-theme-light .noxia-app-shell section.bg-noxia-night,
+.noxia-theme-light .noxia-app-shell .bg-noxia-night{background:#fff!important}
+
+
+/* ===== NOXIA — nouvelle structure : la discussion d'abord ===== */
+:root{--nx-bg:#050812;--nx-panel:#070d1c;--nx-surface:#0c1428;--nx-surface-2:#131d38;--nx-line:rgba(132,150,190,.2);--nx-text:#eef2f8;--nx-muted:#9aa6bf;--nx-violet:#9B4DFF;--nx-hover:rgba(155,77,255,.14);--nx-danger:#ff8da1}
+.noxia-theme-light{--nx-bg:#f4f6fb;--nx-panel:#ffffff;--nx-surface:#ffffff;--nx-surface-2:#e8edf9;--nx-line:rgba(52,76,120,.2);--nx-text:#172033;--nx-muted:#566480;--nx-hover:rgba(112,72,230,.1);--nx-danger:#c0283f}
+.noxia-theme-light body{background:var(--nx-bg);color:var(--nx-text)}
+.noxia-theme-light .noxia-app-shell{background:var(--nx-bg)}
+/* Le logo a un fond transparent pensé pour le sombre : en thème clair, il reste net dans un petit cadre sombre arrondi. */
+.noxia-theme-light .noxia-logo{background:#070d1c;border-radius:12px;padding:4px 12px}
+
+.nx-shell{height:100dvh;display:flex;background:var(--nx-bg);color:var(--nx-text)}
+.nx-shell a{text-decoration:none}
+.nx-icon-btn{display:grid;place-items:center;width:44px;height:44px;flex:none;border:0;border-radius:12px;background:transparent;color:var(--nx-muted);cursor:pointer;transition:background .15s,color .15s}
+.nx-icon-btn:hover,.nx-icon-btn[aria-pressed="true"]{background:var(--nx-hover);color:var(--nx-text)}
+
+/* Panneau ☰ : tiroir sur mobile, colonne fixe dès 1024px */
+.nx-panel{position:fixed;inset:0 auto 0 0;z-index:60;width:min(86vw,300px);display:flex;flex-direction:column;gap:12px;padding:12px 12px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-right:1px solid var(--nx-line);overflow-y:auto;transform:translateX(-100%);visibility:hidden;transition:transform .22s ease,visibility 0s linear .22s}
+.nx-panel.is-open{transform:none;visibility:visible;transition:transform .22s ease}
+.nx-overlay{position:fixed;inset:0;z-index:55;border:0;background:rgba(2,4,10,.62)}
+.nx-panel-head{display:flex;align-items:center;justify-content:space-between}
+.nx-panel-head .noxia-logo-image{height:46px}
+.nx-new-chat{display:flex;align-items:center;gap:10px;min-height:46px;padding:0 14px;border:1px solid rgba(255,255,255,.1);border-radius:1rem;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--nx-text);font-size:15px;font-weight:600;transition:border-color .2s,box-shadow .2s,transform .2s}
+.nx-new-chat:hover{border-color:var(--nx-violet)}
+.nx-history{flex:1;min-height:110px;overflow-y:auto}
+.nx-history ul{list-style:none;margin:0;padding:0}
+.nx-panel-title{margin:4px 10px 6px;font-size:12px;color:var(--nx-muted)}
+.nx-panel-empty{margin:6px 10px;font-size:13px;color:var(--nx-muted)}
+.nx-conv{display:block;min-height:40px;padding:10px 12px;border-radius:10px;color:var(--nx-text);font-size:14px}
+.nx-conv span{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.nx-conv:hover,.nx-conv.is-active{background:var(--nx-hover)}
+.nx-nav{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--nx-line);padding-top:10px}
+.nx-nav-link{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:10px;color:var(--nx-muted);font-size:14px}
+.nx-nav-link:hover{background:var(--nx-hover);color:var(--nx-text)}
+.nx-nav-link.is-active{background:var(--nx-hover);color:var(--nx-text);box-shadow:inset 2px 0 0 var(--nx-violet)}
+.nx-premium{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid rgba(155,77,255,.5);border-radius:12px;background:linear-gradient(135deg,rgba(116,53,255,.16),rgba(25,191,255,.07));color:var(--nx-text)}
+.nx-premium svg{color:#b98bff;flex:none}
+.nx-premium span{display:flex;flex-direction:column;font-size:13px}
+.nx-premium small{color:var(--nx-muted);font-size:11px}
+.nx-panel-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--nx-line);padding-top:10px}
+.nx-who{display:flex;align-items:center;gap:10px;min-width:0;color:var(--nx-text)}
+.nx-who-text{display:flex;flex-direction:column;min-width:0}
+.nx-who-text strong{font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.nx-who-text small{font-size:12px;color:var(--nx-muted)}
+.nx-panel-foot .noxia-signout{min-height:40px;padding:0 10px;border:1px solid var(--nx-line);font-size:12px;flex:none}
+
+/* Zone principale */
+.nx-main{flex:1;min-width:0;height:100dvh;display:flex;flex-direction:column}
+.nx-topbar{flex:none;height:56px;display:flex;align-items:center;gap:6px;padding:0 10px;border-bottom:1px solid var(--nx-line);background:var(--nx-bg)}
+.nx-topbar-logo .noxia-logo-image{height:34px}
+.nx-topbar-right{margin-left:auto;display:flex;align-items:center;gap:6px}
+.nx-credits{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid rgba(255,255,255,.1);border-radius:999px;color:var(--nx-text);font-size:14px;font-weight:600;transition:border-color .2s,box-shadow .2s,transform .2s}
+.nx-avatar-link{width:36px;height:36px;font-size:14px}
+.nx-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden}
+.nx-legal{margin:0 auto;max-width:760px;padding:14px 16px 18px;text-align:center;font-size:11px;line-height:1.5;color:var(--nx-muted)}
+@media(min-width:1024px){
+  .nx-panel{position:static;transform:none;visibility:visible;width:288px;flex:none;height:100dvh;transition:none}
+  .nx-only-mobile{display:none!important}
+  .nx-overlay{display:none}
+}
+
+/* Discussion */
+.nx-chat{display:flex;flex-direction:column;min-height:calc(100dvh - 56px)}
+.nx-chat-body{flex:1;display:flex;flex-direction:column;width:100%;max-width:760px;margin:0 auto;padding:20px 16px 8px}
+.nx-welcome{margin:auto 0;padding:24px 0;text-align:center}
+.nx-welcome h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(32px,7vw,46px);font-weight:400;letter-spacing:-.01em}
+.nx-welcome p{margin:8px 0 0;font-size:clamp(18px,3.6vw,22px);color:var(--nx-muted)}
+.nx-quick{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px}
+.nx-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--nx-text);font:inherit;font-size:15px;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s}
+.nx-chip:hover{border-color:var(--nx-violet)}
+.nx-chip.is-on,.nx-chip[aria-pressed="true"]{border-color:var(--nx-violet);background:var(--nx-hover)}
+.nx-thread{display:flex;flex-direction:column;gap:18px;padding:8px 0}
+.nx-msg{display:flex;flex-direction:column;max-width:100%}
+.nx-msg.is-user{align-items:flex-end}
+.nx-bubble{white-space:pre-wrap;overflow-wrap:anywhere;font-size:16px;line-height:1.65}
+.nx-msg.is-user .nx-bubble{max-width:85%;padding:10px 16px;border-radius:20px 20px 6px 20px;background:var(--nx-surface-2)}
+.nx-bubble.is-ghost{opacity:.7}
+.nx-bubble.is-failed{padding:10px 14px;border:1px solid var(--nx-danger);border-radius:12px;color:var(--nx-danger);font-size:14px}
+.nx-typing{margin:0;font-size:14px;color:var(--nx-muted)}
+.nx-composer-wrap{position:sticky;bottom:0;z-index:5;padding:10px 16px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--nx-bg) 72%,transparent)}
+.nx-composer-wrap>*{max-width:760px;margin-left:auto;margin-right:auto}
+.nx-composer{display:flex;align-items:flex-end;gap:2px;padding:5px 5px 5px 18px;border:1px solid rgba(255,255,255,.1);border-radius:28px;background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 8px 28px rgba(0,0,0,.16);transition:border-color .2s,box-shadow .2s,transform .2s}
+.nx-composer:focus-within{border-color:var(--nx-violet);box-shadow:0 0 0 3px rgba(155,77,255,.2)}
+.nx-composer textarea{flex:1;min-width:0;max-height:200px;resize:none;border:0;outline:0;background:transparent;color:var(--nx-text);font:inherit;font-size:16px;line-height:1.5;padding:10px 0}
+.nx-composer textarea::placeholder{color:var(--nx-muted)}
+.nx-send{display:grid;place-items:center;width:44px;height:44px;flex:none;border:0;border-radius:50%;background:linear-gradient(135deg,#6b27ff,#397fff);color:#fff;cursor:pointer}
+.nx-send:disabled{opacity:.4;cursor:not-allowed}
+.nx-composer-wrap .nx-legal{padding:8px 4px 0}
+.nx-voice{margin-bottom:8px}
+.nx-notice{margin:0 auto 8px;font-size:14px;color:var(--nx-danger)}
+.nx-notice a{text-decoration:underline}
+
+/* Bande publicitaire */
+.nx-ad{display:flex;align-items:center;gap:12px;margin-bottom:8px;padding:8px 6px 8px 12px;border:1px solid var(--nx-line);border-radius:16px;background:var(--nx-surface)}
+.nx-ad-img{width:44px;height:44px;flex:none;border-radius:8px;object-fit:cover}
+.nx-ad-copy{display:flex;flex:1;min-width:0;flex-direction:column;font-size:13px;line-height:1.35}
+.nx-ad-copy strong{overflow:hidden;font-weight:600;white-space:nowrap;text-overflow:ellipsis}
+.nx-ad-copy small{overflow:hidden;font-size:12px;color:var(--nx-muted);white-space:nowrap;text-overflow:ellipsis}
+.nx-ad-label{font-size:11px;color:var(--nx-muted)}
+.nx-ad-cta{display:inline-flex;align-items:center;flex:none;min-height:38px;padding:0 14px;border-radius:999px;background:linear-gradient(90deg,#6b27ff,#397fff);color:#fff!important;font-size:13px;font-weight:600}
+.nx-ad-close{width:40px;height:40px;flex:none;border:0;border-radius:50%;background:transparent;color:var(--nx-muted);cursor:pointer}
+.nx-ad-close:hover{background:var(--nx-hover);color:var(--nx-text)}
+
+/* Thème clair : les pages construites avec les classes Tailwind NOXIA (formulaires, admin, outils) restent lisibles */
+.noxia-theme-light .bg-noxia-night,.noxia-theme-light .bg-noxia-night\/90,.noxia-theme-light .bg-noxia-night\/85{background-color:#fff!important}
+.noxia-theme-light .text-noxia-silver{color:#172033}
+.noxia-theme-light .text-noxia-ash{color:#566480}
+.noxia-theme-light .border-noxia-silver\/10,.noxia-theme-light .border-noxia-silver\/15,.noxia-theme-light .border-noxia-silver\/20,.noxia-theme-light .border-noxia-silver\/30{border-color:rgba(52,76,120,.22)}
+.noxia-theme-light a.hover\:text-white:hover:not([class*="bg-noxia-violet"]),.noxia-theme-light .hover\:text-white:hover:not([class*="bg-"]){color:#172033}
+.noxia-theme-light .text-amber-400{color:#a15c00}
+
+/* ── Pièces jointes du chat (ajout) : mêmes variables et mêmes rayons que le compositeur existant ── */
+.nx-attach-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0 auto 8px;padding:0}
+.nx-attach{display:flex;align-items:center;gap:10px;min-width:0;max-width:100%;padding:6px 6px 6px 6px;border:1px solid var(--nx-line);border-radius:16px;background:var(--nx-surface)}
+.nx-attach.is-error{border-color:#d4455b}
+.nx-attach-thumb{width:44px;height:44px;flex:none;border-radius:10px;object-fit:cover;background:var(--nx-hover)}
+.nx-attach-file{display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--nx-muted)}
+.nx-attach-meta{display:flex;flex-direction:column;min-width:0;gap:2px}
+.nx-attach-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;font-size:14px;color:var(--nx-text)}
+.nx-attach-sub{font-size:12px;color:var(--nx-muted)}
+.nx-attach.is-error .nx-attach-sub{color:#d4455b}
+.nx-attach-bar{display:block;height:3px;border-radius:2px;background:var(--nx-hover);overflow:hidden}
+.nx-attach-bar>span{display:block;height:100%;background:var(--nx-violet);transition:width .15s}
+.nx-attach-x{display:grid;place-items:center;width:36px;height:36px;flex:none;border:0;border-radius:10px;background:transparent;color:var(--nx-muted);cursor:pointer}
+.nx-attach-x:hover{background:var(--nx-hover);color:var(--nx-text)}
+.nx-attach-menu{display:flex;gap:8px;margin:0 auto 8px}
+.nx-attach-menu button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid var(--nx-line);border-radius:999px;background:var(--nx-surface);color:var(--nx-text);font:inherit;font-size:14px;cursor:pointer}
+.nx-attach-menu button:hover{background:var(--nx-hover)}
+
+/* ── Menus flottants du chat : « ⋯ » (options) et « + » (ajout). Mêmes variables que le reste de l'interface, thème clair inclus. ── */
+.nx-chat-head{position:sticky;top:0;z-index:6;display:flex;align-items:center;justify-content:flex-end;gap:4px;max-width:760px;width:100%;margin:0 auto;padding:6px 8px 0;pointer-events:none}
+.nx-chat-head>*{pointer-events:auto}
+.nx-pop-root{position:relative;display:inline-flex}
+.nx-pop-backdrop{display:none}
+.nx-pop{position:absolute;z-index:40;min-width:248px;max-width:min(92vw,320px);padding:6px;border:1px solid var(--nx-line);border-radius:16px;background:var(--nx-panel);color:var(--nx-text);box-shadow:0 18px 48px rgba(0,0,0,.34);animation:nxPop .14s ease-out;transform-origin:var(--nx-origin,top right)}
+.nx-pop-down{top:calc(100% + 6px);right:0}
+.nx-pop-up{bottom:calc(100% + 10px);left:0;--nx-origin:bottom left}
+.nx-pop-item{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;padding:6px 10px;border:0;border-radius:10px;background:transparent;color:var(--nx-text);font:inherit;font-size:15px;text-align:left;cursor:pointer}
+.nx-pop-item:hover:not(:disabled),.nx-pop-item:focus-visible{background:var(--nx-hover);outline:0}
+.nx-pop-item:focus-visible{box-shadow:inset 0 0 0 2px var(--nx-violet)}
+.nx-pop-item:disabled{opacity:.45;cursor:not-allowed}
+.nx-pop-item.is-danger{color:var(--nx-danger)}
+.nx-pop-ico{display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:9px;background:var(--nx-surface-2);color:var(--nx-muted)}
+.nx-pop-item.is-danger .nx-pop-ico{color:var(--nx-danger)}
+.nx-pop-text{display:flex;flex-direction:column;min-width:0;flex:1;line-height:1.25}
+.nx-pop-text small{font-size:12px;color:var(--nx-muted)}
+.nx-pop-chev{transform:rotate(-90deg);color:var(--nx-muted);flex:none}
+.nx-pop-sep{height:1px;margin:5px 6px;background:var(--nx-line)}
+.nx-pop-note{margin:4px 8px 6px;font-size:13px;line-height:1.4;color:var(--nx-muted)}
+.nx-pop-note.is-error{color:var(--nx-danger)}
+.nx-rot{transition:transform .18s;transform:rotate(45deg)}
+.nx-rot-left{transform:rotate(90deg)}
+.nx-rot-90{transform:rotate(90deg)}
+.nx-switch{position:relative;flex:none;width:38px;height:22px;border-radius:999px;background:var(--nx-surface-2);border:1px solid var(--nx-line);transition:background .15s}
+.nx-switch i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--nx-muted);transition:transform .15s,background .15s}
+.nx-switch.is-on{background:var(--nx-violet);border-color:var(--nx-violet)}
+.nx-switch.is-on i{transform:translateX(16px);background:#fff}
+@keyframes nxPop{from{opacity:0;transform:scale(.96) translateY(-4px)}to{opacity:1;transform:none}}
+
+/* Mobile : les menus deviennent des feuilles ancrées en bas, avec voile derrière (cibles tactiles de 52 px). */
+@media(max-width:639px){
+  .nx-pop-root{position:static}
+  .nx-pop-backdrop{display:block;position:fixed;inset:0;z-index:70;background:rgba(2,4,10,.55)}
+  .nx-pop{position:fixed;z-index:71;left:8px;right:8px;top:auto;bottom:calc(8px + env(safe-area-inset-bottom));max-width:none;min-width:0;border-radius:20px;padding:8px;max-height:82dvh;overflow-y:auto;animation:nxSheet .2s ease-out}
+  .nx-pop-item{min-height:52px}
+  .nx-chat-head{padding-right:4px}
+}
+@keyframes nxSheet{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+
+/* Boîte de confirmation (suppression) */
+.nx-modal-wrap{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:16px;background:rgba(2,4,10,.62)}
+.nx-modal{width:min(100%,400px);padding:22px;border:1px solid var(--nx-line);border-radius:20px;background:var(--nx-panel);color:var(--nx-text);box-shadow:0 24px 64px rgba(0,0,0,.4)}
+.nx-modal h2{margin:0 0 8px;font-size:18px;font-weight:600}
+.nx-modal p{margin:0;font-size:14px;line-height:1.5;color:var(--nx-muted)}
+.nx-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.nx-btn{min-height:44px;padding:0 18px;border:1px solid var(--nx-line);border-radius:12px;background:var(--nx-surface-2);color:var(--nx-text);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.nx-btn:hover:not(:disabled){border-color:var(--nx-violet)}
+.nx-btn:focus-visible{outline:2px solid var(--nx-violet);outline-offset:2px}
+.nx-btn.is-danger{background:#d4455b;border-color:#d4455b;color:#fff}
+.nx-btn:disabled{opacity:.6;cursor:wait}
+
+/* Recherche dans la discussion + pastille « Réflexion approfondie » */
+.nx-find{display:flex;align-items:center;gap:6px;max-width:760px;margin:6px auto 0;padding:4px 6px 4px 14px;border:1px solid var(--nx-line);border-radius:999px;background:var(--nx-surface)}
+.nx-find:focus-within{border-color:var(--nx-violet)}
+.nx-find input{flex:1;min-width:0;height:36px;border:0;outline:0;background:transparent;color:var(--nx-text);font:inherit;font-size:15px}
+.nx-find-count{font-size:12px;color:var(--nx-muted);white-space:nowrap}
+.nx-bubble.is-hit{box-shadow:0 0 0 2px rgba(155,77,255,.55)}
+.nx-bubble.is-hit-current{box-shadow:0 0 0 2px var(--nx-violet),0 0 18px rgba(155,77,255,.45)}
+.nx-mode-chip{display:inline-flex;align-items:center;gap:6px;align-self:center;min-height:32px;padding:0 6px 0 10px;margin:0 2px;border:1px solid var(--nx-violet);border-radius:999px;background:var(--nx-hover);color:var(--nx-text);font-size:13px;white-space:nowrap}
+.nx-mode-chip button{display:grid;place-items:center;width:24px;height:24px;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer}
+.nx-mode-chip button:hover{background:var(--nx-hover)}
+@media(max-width:380px){.nx-mode-chip span{display:none}}
+
+/* ───────── Orbe IA (mode vocal) ───────── */
+.nx-orb{position:relative;display:grid;place-items:center;--lvl:0}
+.nx-orb-core{position:relative;width:62%;height:62%;border-radius:50%;overflow:hidden;transform:scale(calc(1 + var(--lvl) * .32));transition:transform .08s linear;background:radial-gradient(circle at 32% 28%,#f0abfc 0%,#a855f7 38%,#4f46e5 72%,#1e1b4b 100%);box-shadow:inset -14px -18px 36px rgba(15,10,50,.55),inset 10px 12px 28px rgba(255,255,255,.18),0 0 60px rgba(168,85,247,.55)}
+.nx-orb-glow{position:absolute;inset:6%;border-radius:50%;background:radial-gradient(circle,rgba(217,70,239,.45),rgba(99,102,241,.2) 55%,transparent 72%);filter:blur(22px);opacity:calc(.55 + var(--lvl) * .6);transform:scale(calc(1 + var(--lvl) * .4))}
+.nx-orb-blob{position:absolute;width:75%;height:75%;border-radius:50%;filter:blur(18px);mix-blend-mode:screen;animation:nx-orb-spin 9s linear infinite}
+.nx-orb-blob-a{left:-12%;top:-10%;background:radial-gradient(circle,#f472b6,transparent 68%)}
+.nx-orb-blob-b{right:-14%;bottom:-12%;background:radial-gradient(circle,#818cf8,transparent 68%);animation-duration:13s;animation-direction:reverse}
+.nx-orb-shine{position:absolute;left:18%;top:12%;width:34%;height:22%;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.55),transparent 70%);filter:blur(4px)}
+.nx-orb-wave{position:absolute;inset:14%;border-radius:50%;border:1.5px solid rgba(216,180,254,.45);opacity:0}
+.nx-orb[data-state="listening"] .nx-orb-wave,.nx-orb[data-state="speaking"] .nx-orb-wave{animation:nx-orb-wave 2.4s ease-out infinite}
+.nx-orb-wave-2{animation-delay:.8s!important}.nx-orb-wave-3{animation-delay:1.6s!important}
+.nx-orb[data-state="thinking"] .nx-orb-blob,.nx-orb[data-state="transcribing"] .nx-orb-blob{animation-duration:3s}
+.nx-orb[data-state="idle"] .nx-orb-core{animation:nx-orb-breathe 4.5s ease-in-out infinite}
+@keyframes nx-orb-spin{to{transform:rotate(360deg)}}
+@keyframes nx-orb-wave{0%{transform:scale(.75);opacity:.7}100%{transform:scale(1.55);opacity:0}}
+@keyframes nx-orb-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@media (prefers-reduced-motion:reduce){.nx-orb *{animation:none!important}.nx-orb-core{transform:none!important}}
+
+/* ───────── Design Glassmorphism sombre (chat, agents, image, vidéo) ─────────
+   Mêmes valeurs que les classes Tailwind demandées : fond rgba(255,255,255,.03), flou 12 px (backdrop-blur-md), bordure white/10, coins 2xl (1rem),
+   lueur violette au survol (shadow-purple-500/10 + border-purple-500/30), boutons en dégradé purple-600 → indigo-600. Thème sombre uniquement. */
+html:not(.noxia-theme-light) .nx-ui2 .bg-noxia-night{background-color:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+html:not(.noxia-theme-light) .nx-ui2 [class*="border-noxia-silver"]:not(input):not(textarea):not(select):not(button){border-color:rgba(255,255,255,.1)}
+html:not(.noxia-theme-light) .nx-ui2 form.rounded-md,html:not(.noxia-theme-light) .nx-ui2 section.rounded-md,html:not(.noxia-theme-light) .nx-ui2 li.rounded-md,html:not(.noxia-theme-light) .nx-ui2 article.rounded-md{border-radius:1rem;transition:box-shadow .2s,border-color .2s}
+html:not(.noxia-theme-light) .nx-ui2 form.rounded-md:hover,html:not(.noxia-theme-light) .nx-ui2 section.rounded-md:hover,html:not(.noxia-theme-light) .nx-ui2 li.rounded-md:hover,html:not(.noxia-theme-light) .nx-ui2 article.rounded-md:hover{border-color:rgba(168,85,247,.3);box-shadow:0 10px 40px -12px rgba(168,85,247,.18)}
+html:not(.noxia-theme-light) .nx-ui2 input:not([type="radio"]):not([type="checkbox"]),html:not(.noxia-theme-light) .nx-ui2 textarea,html:not(.noxia-theme-light) .nx-ui2 select{background-color:rgba(2,2,12,.55);border-color:rgba(255,255,255,.12);border-radius:.75rem;color:#f5f5fb}
+html:not(.noxia-theme-light) .nx-ui2 input:focus,html:not(.noxia-theme-light) .nx-ui2 textarea:focus,html:not(.noxia-theme-light) .nx-ui2 select:focus{outline:none;border-color:rgba(168,85,247,.6);box-shadow:0 0 0 3px rgba(168,85,247,.15)}
+html:not(.noxia-theme-light) .nx-ui2 button[class*="bg-noxia-violet"]:not(:disabled){background-image:linear-gradient(to right,#9333ea,#4f46e5);background-color:transparent;font-weight:700;border:0;border-radius:.75rem;transition:transform .15s,box-shadow .2s,filter .2s}
+html:not(.noxia-theme-light) .nx-ui2 button[class*="bg-noxia-violet"]:not(:disabled):hover{filter:brightness(1.1);box-shadow:0 8px 30px -8px rgba(124,58,237,.6)}
+html:not(.noxia-theme-light) .nx-ui2 button[class*="bg-noxia-violet"]:not(:disabled):active{transform:scale(.97)}
+@media (prefers-reduced-motion:reduce){.nx-ui2 *{transition:none!important}}
+/* Chat d'accueil : compositeur et bulles en verre sombre, bouton d'envoi en dégradé. */
+html:not(.noxia-theme-light) .nx-ui2 .nx-composer{background:rgba(255,255,255,.03);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-color:rgba(255,255,255,.1);border-radius:1.25rem;transition:box-shadow .2s,border-color .2s}
+html:not(.noxia-theme-light) .nx-ui2 .nx-composer:hover{border-color:rgba(168,85,247,.3);box-shadow:0 10px 40px -12px rgba(168,85,247,.18)}
+html:not(.noxia-theme-light) .nx-ui2 .nx-composer:focus-within{border-color:rgba(168,85,247,.6);box-shadow:0 0 0 3px rgba(168,85,247,.15)}
+html:not(.noxia-theme-light) .nx-ui2 .nx-msg.is-user .nx-bubble{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+html:not(.noxia-theme-light) .nx-ui2 .nx-send:not(:disabled){background-image:linear-gradient(to right,#9333ea,#4f46e5);border:0;color:#fff;transition:transform .15s,box-shadow .2s}
+html:not(.noxia-theme-light) .nx-ui2 .nx-send:not(:disabled):hover{box-shadow:0 8px 30px -8px rgba(124,58,237,.6)}
+html:not(.noxia-theme-light) .nx-ui2 .nx-send:not(:disabled):active{transform:scale(.95)}
+
+
+/* Lueur néon violette au survol des cartes (cartes du tableau de bord et panneaux du chat). */
+.noxia-credit-card:hover,.noxia-bonus-card:hover,.noxia-module-card:hover,.noxia-special-card:hover,.noxia-streak-card:hover,.noxia-creations-card:hover,.noxia-hero-card:hover,.noxia-premium-mini:hover,.nx-new-chat:hover,.nx-chip:hover{border-color:rgba(168,85,247,.3);box-shadow:0 10px 40px -12px rgba(168,85,247,.25)}
+.noxia-gradient-btn,.nx-send{background-image:linear-gradient(to right,#9333ea,#4f46e5)!important}
+.noxia-side-link.is-active{background:linear-gradient(to right,#9333ea,#4f46e5);border-color:rgba(192,132,252,.5);box-shadow:0 0 24px rgba(147,51,234,.35)}
+.noxia-app-shell,.nx-shell{background:radial-gradient(circle at 85% 0,rgba(168,85,247,.16),transparent 45%),radial-gradient(circle at 5% 100%,rgba(79,70,229,.14),transparent 50%),#050812}
+
+/* Bande d'annonces défilante (de droite à gauche, boucle continue, pause au survol). */
+.nx-ad-ticker{padding:6px 6px 6px 0;overflow:hidden}
+.nx-ad-viewport{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.nx-ad-track{display:flex;width:max-content;animation:nx-ad-scroll linear infinite}
+.nx-ad-ticker:hover .nx-ad-track,.nx-ad-ticker:focus-within .nx-ad-track{animation-play-state:paused}
+.nx-ad-item{display:flex;flex:none;align-items:center;gap:10px;padding-right:56px;font-size:13px;white-space:nowrap}
+.nx-ad-item strong{font-weight:600}
+.nx-ad-item small{color:var(--nx-muted);font-size:12px}
+@keyframes nx-ad-scroll{from{transform:translateX(0)}to{transform:translateX(calc(-100% / var(--reps,2)))}}
+@media (prefers-reduced-motion:reduce){.nx-ad-track{animation:none}.nx-ad-viewport{overflow-x:auto}.nx-ad-item[aria-hidden="true"]{display:none}}

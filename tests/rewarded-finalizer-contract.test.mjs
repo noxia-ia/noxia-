@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const root = process.cwd();
+const migration = fs.readFileSync(path.join(root, 'supabase/migrations/0045_rewarded_ads_watch_only_finalizer.sql'), 'utf8');
+const service = fs.readFileSync(path.join(root, 'src/lib/campaigns/service.ts'), 'utf8');
+const page = fs.readFileSync(path.join(root, 'src/app/dashboard/rewards/page.tsx'), 'utf8');
+if (!migration.includes('if not v_claim.watch_verified then raise exception \'watch_incomplete\'; end if;')) throw new Error('finalizer must require watch_verified');
+if (migration.includes('v_claim.action_verified then')) throw new Error('finalizer must not require action_verified');
+if (!migration.includes('v_reward integer := 2')) throw new Error('reward must be fixed at +2');
+if (!migration.includes('v_user_rewards >= 5') || !migration.includes('v_user_reward_credits + v_reward > 10')) throw new Error('daily reward cap missing');
+if (!service.includes('p_provider: "noxia_rewarded_ads"')) throw new Error('server reward provider marker missing');
+if (!page.includes('.eq("active", true)')) throw new Error('public rewards page must filter active campaigns');
+console.log('rewarded-finalizer-contract: OK');

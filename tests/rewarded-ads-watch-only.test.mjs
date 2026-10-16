@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { REWARDED_AD_POLICY, rewardConditionMessage } from '../src/lib/reward-policy.ts';
+assert.equal(REWARDED_AD_POLICY.rewardCredits, 2);
+assert.equal(REWARDED_AD_POLICY.maxAdsPerDay, 5);
+assert.equal(REWARDED_AD_POLICY.maxCreditsPerDay, 10);
+assert.equal(REWARDED_AD_POLICY.requiresFullWatch, true);
+assert.equal(REWARDED_AD_POLICY.requiresVerifiedSocialAction, false);
+assert.equal(REWARDED_AD_POLICY.rewardOnlyAfterBothConditions, false);
+assert.match(rewardConditionMessage(), /2 crédits/);
+assert.match(rewardConditionMessage(), /5 publicités/);
+assert.doesNotMatch(rewardConditionMessage(), /action demandée/);
+console.log('rewarded-ads watch-only policy: OK');

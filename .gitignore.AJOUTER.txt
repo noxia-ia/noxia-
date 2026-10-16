@@ -1,0 +1,6 @@
+Ajoute ces 4 lignes A LA FIN de ton fichier .gitignore (ne le remplace pas) :
+
+.open-next
+.wrangler
+.dev.vars
+cloudflare-env.d.ts
