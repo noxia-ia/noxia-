@@ -1,0 +1,18 @@
+{
+  // Configuration Cloudflare Workers pour NOXIA (adaptateur OpenNext). Le nom doit être identique à celui du projet dans Cloudflare : « noxia ».
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "noxia",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-06-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "images": {
+    "binding": "IMAGES"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
