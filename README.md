@@ -61,4 +61,6 @@ import { PublicSignupCounter } from "@/components/landing/PublicSignupCounter";
 const { data } = await supabase.rpc("user_payment_eligibility");
 ```
 
+
 Aucune nouvelle dépendance npm.
+
