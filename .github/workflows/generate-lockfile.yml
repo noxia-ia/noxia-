@@ -19,15 +19,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       - name: Generate package-lock.json
-        run: npm install --package-lock-only --ignore-scripts
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
 
       - name: Save package-lock.json
         run: |
+          if [ ! -f package-lock.json ]; then
+            echo "ERREUR : package-lock.json n'a pas été créé."
+            exit 1
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add package-lock.json
-          git diff --cached --quiet || git commit -m "Generate package-lock.json"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "Aucune modification à enregistrer."
+          else
+            git commit -m "Generate package-lock.json"
+            git push
+          fi
