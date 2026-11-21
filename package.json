@@ -1,3 +1,4 @@
+
 {
   "name": "noxia-ai",
   "version": "0.1.0",
@@ -80,6 +81,6 @@
     "wrangler": "^4.151.0"
   },
   "engines": {
-    "node": ">=18.18"
+    "node": ">=22.7.0"
   }
 }
